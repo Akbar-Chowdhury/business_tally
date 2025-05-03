@@ -1,9 +1,11 @@
+import os
 from flask import Flask, render_template, redirect, url_for, request, session
 from models import db, init_db, User, Inventory, Sale
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 init_db(app)
